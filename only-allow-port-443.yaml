@@ -1,0 +1,18 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: only-allow-port-443
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: check-port
+      match:
+        any:
+        - resources:
+            kinds: [Service]
+      validate:
+        message: "Only port 443 is allowed."
+        pattern:
+          spec:
+            ports:
+              - port: 443
