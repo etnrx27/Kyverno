@@ -1,6 +1,5 @@
 # Kyverno-101 
 This is a document that explores the basic fundamentals of Kyverno.
-> ⚠️ *Warning: This is based on kyverno v1.18.1. Concepts might differ for future versions.*
 #
 # Table-of-Contents 
 - [Policy-As-Code](#policy-as-code-pac)
@@ -52,7 +51,7 @@ A diagram illustrating this can be seen below:
 > 🛡️ **Architecture Note: Policy Enforcement with Kyverno**
 > 
 > 1. **Submission:** The developer or CI pipeline pushes a manifest via `kubectl`.
-> 2. **Intercept:** The Kubernetes API server catches the request and passes it to Kyverno using a *[Webhook](kyverno-further-reading.md)*.
+> 2. **Intercept:** The Kubernetes API server catches the request and passes it to Kyverno using a *[Webhook](kyverno-further-reading.md#two-webhooks)*.
 > 3. **Validation:** Kyverno checks if the incoming configuration violates any structural or security rules (e.g., checking if the pod runs as root).
 > 4. **Verdict:** If approved, the resource is created in the cluster; otherwise, the request is instantly blocked.
 
@@ -174,7 +173,7 @@ applyConfiguration:
             }
           }
 ```
-<span style="color: red;"><i>OR</i></span>
+**<i>OR</i>**
 ```
 jsonPatch:
         expression: |
@@ -243,8 +242,8 @@ validations:
 Ensures integrity of the images by checking if they are signed. 
 #### Use Cases:
 **Signature Verification:** Checks if an resource has been signed by a trusted Authority for enhanced security.  
-**Registry Enforcement:** Ensures that container images are only pulled from approved, secure registries rather than public, untrusted sources  
-**Integrity Chceking:** Checks if the resource has been tampered with or modified
+**Registry Enforcement:** Ensures that container images are only pulled from approved, secure registries rather than public, untrusted sources.  
+**Integrity Chceking:** Checks if the resource has been tampered with or modified.
 ### Generating Policy 
 Automatically creates or clones new resources in response to another resource being created.
 #### Use Cases:
@@ -258,7 +257,7 @@ Cleans up resources on a schedule or condition.
 >⚠️ **Notice:**
 >
 > For our specific context, we will be more interested on **validating** and **mutating**.  
-> More information on the others could be found under [further reading.](kyverno-further-reading.md)
+> More information on the others could be found under [further reading.](kyverno-further-reading.md#five-policy-types)
 
 ## Policy Exceptions
 A [Policy Exception](https://kyverno.io/docs/guides/exceptions/) is a Namespaced Custom Resource that allows a resource to be allowed past a given policy and rule combination. There may be times where a team must allow certain exceptions which would normally violate the configured rules. Instead of making adjustments to the policy each time, an exception could be implemented instead. 
@@ -281,7 +280,7 @@ matchConditions:
 >
 > Policy Exceptions are disabled by default.
 > To enable, one must set the flag, <span style="color: yellow;"><i>enablePolicyException</i></span>, to true and  
-> specify the namespaces where policy exceptions are permitted via the <span style="color: yellow;"><i>exceptionNamespace</i></span> flag
+> specify the namespaces where policy exceptions are permitted via the <span style="color: yellow;"><i>exceptionNamespace</i></span> flag.
 
 ## Policy Reports
 Policy Reports are K8s Custom Resources that are generated and managed automatically by Kyverno. It contains the results of applying matching Kubernetes resources to policies configured.
@@ -325,7 +324,7 @@ kyverno apply /path/to/policy.yaml /path/to/folderOfPolicies --resource=/path/to
 kyverno apply /path/to/policy.yaml /path/to/folderOfPolicies --resource=/path/to/resources/ # Applying on a folder of resource 
 kyverno apply /path/to/policy.yaml /path/to/folderOfPolicies --cluster # Applying on a cluster
 ```
-<span style="color: yellow;"><i>kyverno test</i></span> is used to ensure a set of policies and resources always produced a predefined set of outcomes
+<span style="color: yellow;"><i>kyverno test</i></span> is used to ensure a set of policies and resources always produced a predefined set of outcomes.
 ```
 Example File Directory:
 tests/
@@ -340,7 +339,7 @@ kyverno test tests/ # Determines if the actual results matches the expected ones
 >
 > Tests for Kyverno Policies may be executed via a workflow through [GitHub Action](https://kyverno.io/docs/guides/testing-policies/#:~:text=in%20a%20cluster.-,GitHub%20Actions,-Section%20titled%20%E2%80%9CGitHub).  
 > Tests can be executed on the pull request by applying policies against the resources in the pull request and if one or more fails, the pipeline will be halted. 
-
+#
 # What's Next?
 This document covers the core fundamentals of Kyverno. Do access the other links to find out more about other areas:
 - [Installation](../installation/kyverno-installation.md)
@@ -349,6 +348,7 @@ This document covers the core fundamentals of Kyverno. Do access the other links
 - [Further Reading on Kyverno](kyverno-further-reading.md)
 #  
 # 
- 🗓️ *Last Updated: 22/06/2026*
+ 🗓️ *Last Updated: 24/06/2026*  
+ ⚠️ *Based on: kyverno v1.18.1.*
 
 
