@@ -1,6 +1,8 @@
 # Kyverno-101 
 This is a document that explores the basic fundamentals of Kyverno.
-#
+
+<br>
+
 # Table-of-Contents 
 - [Policy-As-Code](#policy-as-code-pac)
 - [Kyverno](#kyverno)
@@ -10,7 +12,9 @@ This is a document that explores the basic fundamentals of Kyverno.
       - [Policy Exceptions](#policy-exceptions)  
       - [Policy Report](#policy-reports)  
       - [CLI Testing](#cli-for-local-testing)  
-#
+
+<br> 
+
 # Policy-As-Code (PAC) 
 ## What is A Policy?
 A Policy is any type of rule, condition, or instruction that governs IT operations or processes.  
@@ -26,7 +30,9 @@ PAC covers a wide range of operational concerns including Security and Complianc
 
 Analagy:
 The difference between PAC and traditional Policy enforcement is similar to how asking someone to poofread one's essay for grammatical or spelling mistakes versus having grammarly enabled to immediately catch mistakes and to fix it. 
-#
+
+<br>
+
 # Kyverno
 ## What is Kyverno?
 [Kyverno](https://kyverno.io/docs/introduction/) is a cloud native policy engine that is built as an extension of K8s' native Admission Webhook system. It is a dynamic admission controller, suggesting that it could be used to implement custom decisions. Through PAC, it allows platform engineers to automate security, compliance, and best practices validation.   
@@ -64,7 +70,9 @@ A diagram illustrating this can be seen below:
 | **Simplicity** | No need to manage underlying infrastructure (ie. certificates, registration and server uptime) as Kyverno handles it. Instead, time can be focused on solely configuring policies. |
 | **Visibility** | Kyverno provides information on what is happening in the cluster by reporting on what resources was checked, what passed, what failed throughout the cluster. |
 | **Compliance** | Kyverno allows for mandating a reasonable, uniform, and unavoidable security baseline across to increase security. |
-#
+
+<br>
+
 # Capabilities
 ## Five Main Policy Types 
 Once a request reaches Kyverno, it can be handled by five different kinds of policy. All of these policies can be either scoped to resources accross all namespaces or to resources within the same namespace. An image of the Kyverno policy evaluation flow can be seen below:  
@@ -346,8 +354,8 @@ This document covers the core fundamentals of Kyverno. Do access the other links
 - [Mutation Examples](../example/kyverno-mutate-policy/mutate-label-apply.yaml)
 - [Validation Examples](../example/kyverno-validate-policy/validate-label-deny.yaml)
 - [Further Reading on Kyverno](kyverno-further-reading.md)
-#  
-# 
+
+---
  🗓️ *Last Updated: 24/06/2026*  
  ⚠️ *Based on: kyverno v1.18.1.*
 

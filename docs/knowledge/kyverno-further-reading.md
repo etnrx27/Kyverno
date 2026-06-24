@@ -1,7 +1,9 @@
 # Kyverno Further Reading 
 This is a document that explores more in-depth on the architecture and concepts of Kyverno.
 >⚠️ *Warning: Please view [kyverno-101.md](/docs/knowledge/kyverno-101.md) before reading this document as this document contains more abstract information only for those that are more interested in Kyverno.*
-#
+
+<br>
+
 # Table-of-Contents 
 - [Admission Controller](#admission-controller)
 - [Kyverno Architecture](#kyverno-architecture-components)
@@ -9,7 +11,9 @@ This is a document that explores more in-depth on the architecture and concepts 
 - [Controllers](#four-controllers)  
 - [Policy Types](#five-policy-types)
 - [Additional Configurations](#additional-configurations)
-#
+
+<br>
+
 # [Admission Controller](https://kyverno.io/docs/guides/admission-controllers/#about-admission-controllers)
 In k8s, admission controllers are components responsible for either validating or modifying requests as part of the admission process. They are often used to control the outcome when new resources are being created. The flow of the admission controller phases can be seen below:
 ```
@@ -48,7 +52,9 @@ There are two types of admission controller: Kubernetes built-in admission contr
 > 🔌 **Dynamic Admission Controller:**    
 > More flexible, and can be used to implement custom decisions  
 > Example: Kyverno -> examine new Deployments to ensure that the resources does not exceed a threshold and has high availability at the same time.
-#
+
+<br>
+
 # [Kyverno Architecture Components](https://kyverno.io/docs/introduction/how-kyverno-works/)
 The table below lists the core components of the Kyverno policy engine and their respective responsibilities:
 
@@ -60,7 +66,9 @@ The table below lists the core components of the Kyverno policy engine and their
 | **Cert Renewer** | Manages and renews the TLS certificates the webhook needs to talk securely to the API server |
 | **Background Controller** | Handles `generate` and mutate-existing policies on resources that already exist in the cluster, not just new ones |
 | **Report Controllers** | Build and reconcile Policy Reports so you can see what Kyverno has been doing |
-#
+
+<br>
+
 # Two Webhooks
 A webhook is a method in which a system can automatically notify another system the instant something happens. In this case, the momment someone runs "kubectl apply", the Kubernetes API will immediately call out to Kyverno's webhook and waits until Kyverno responds. It is an instruction for the Kubernetes API server. 
 Kyverno has two kinds of webhooks that it uses: 
@@ -70,7 +78,9 @@ Runs first and is what supports the MutatingPolicy.
 ## ValidatingAdmissionWebhook
 [Validates](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#validating-admission-webhook) rules as specified to determine if the resource is allowed or deny.   
 Runs second and is what supports the ValidatingPolicy.
-#
+
+<br>
+
 # [Four Controllers](https://kyverno.io/docs/introduction/how-kyverno-works/#:~:text=The-,Webhook,-is%20the%20server)
 The controller listens for requests sent by the API server and uses a policy to determine a decision for the resources it receive. Controllers receiving requests from the Kubernetes API server do so over HTTP/REST. They work together with webhooks to bring about custom decisions. A policy is an instruction for the controller.   
 There are four main pods that is running for Kyverno.  
@@ -124,7 +134,9 @@ The controller that handles the deletion of resources based on certain condition
 ```
 CleanupPolicy defined → cleanup controller watches for matches → deletes resources when conditions are met
 ```
-#
+
+<br>
+
 # [Five Policy Types](https://kyverno.io/docs/policy-types/overview/)
 As mentioned in [kyverno-101](kyverno-101.md#five-main-policy-types), there are five policy types available in Kyverno.  
 This document will explore further in detail for the five policy types, especially **Generating Policy**, **Deleting Policy**, and **Image Validation Policy**. 
@@ -374,7 +386,6 @@ synchronize:
 enabled: true # Downstream is kept in sync with policy/source changes. OR
 enabled: false # Downstream is created once and left alone (Default)
 ```
-
 ## [Deleting Policy](https://kyverno.io/docs/policy-types/deleting-policy/)
 Cleans up resources on a schedule or condition.  
 Operates entirely in the background on a cron-like schedule.
@@ -445,7 +456,9 @@ reportingComponent: kyverno-cleanup
 >
 > **No Validation Action:** Actively deletes resources that already exists on a schedule. There is no request to Deny any deletion.  
 > **RBAC Required:** Cleanup controller needs explicit get/list/watch/delete RBAC for each targeted resource -> [get, list, watch, delete].
-#
+
+<br>
+
 # Additional Configurations
 ## [Monitoring](https://kyverno.io/docs/guides/monitoring/) + [Tracing](https://kyverno.io/docs/guides/tracing/) Capabilities
 Kyverno has monitoring capbilities that gives visibility into policy activitiy through three layers:  
@@ -496,7 +509,6 @@ There are three standards, [Priviledged, Baseline, Restricted].
 ```
 helm install kyverno-policies kyverno/kyverno-policies -n kyverno
 ```
-#  
-# 
+---
  🗓️ *Last Updated: 24/06/2026*  
  ⚠️ *Based on: kyverno v1.18.1.*
