@@ -1,0 +1,22 @@
+# This .yaml file defines a Kyverno policy that validates the presence of a specific label on Kubernetes resources. 
+# The policy ensures that any resource created or updated in the cluster must have the required label, otherwise, the operation will be denied.
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy # This specifies that this policy applies to resources across all namespaces in the cluster
+metadata:
+  name: check-labels
+spec:
+  validationActions:
+    - Deny # This action specifies that if the validation fails, the operation will be denied and the resource will not be created or updated.
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ['']
+        apiVersions: [v1]
+        operations: [CREATE, UPDATE] # This specifies that the policy will be applied to both create and update operations on the specified resources.
+        resources: [pods]
+  validations:
+    - message: label 'environment' is required # This message will be displayed when the validation fails
+      expression: "'environment' in object.metadata.?labels.orValue([])" # This expression checks if the 'environment' label is present in the metadata of the resource.
+      # If labels does not exist, it will default to an empty array, 
+      # ensuring that an error is not returned due to the absence of the labels field.
+
+# Last Updated: 22/06/2026

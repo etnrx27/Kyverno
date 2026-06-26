@@ -1,0 +1,28 @@
+# This .yaml file defines a Kyverno policy that mutates Kubernetes resources by applying a specific label. 
+# The policy ensures that any resource created or updated in the cluster will have the required label applied.
+apiVersion: policies.kyverno.io/v1
+kind: MutatingPolicy
+metadata:
+  name: add-environment-label
+spec:
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ['']
+        apiVersions: ['v1']
+        resources: ['pods']
+        operations: ['CREATE']
+  mutations:
+    - patchType: ApplyConfiguration 
+      applyConfiguration:
+        expression: > # Start of Multiple Line String
+          Object{
+            metadata: Object.metadata{
+              labels: Object.metadata.labels{
+                environment: "production"
+              } 
+            }
+          }
+        # This expression checks if the 'environment' label is already present in the metadata of the resource.
+        # If the label is not present, it will apply the specified label to the resource.
+
+# Last Updated: 22/06/2026

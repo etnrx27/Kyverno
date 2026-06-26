@@ -1,0 +1,21 @@
+# This document is a sample values.yaml file for a Helm chart for Kyverno. 
+# The current setting is installing Kyverno in a highlty available configuration with 3 replicas.
+# Reference Link: https://release-1-16-0.kyverno.io/docs/installation/methods/
+
+admissionController:
+  # This sets the admission controller mode more information can be found here: https://release-1-16-0.kyverno.io/docs/high-availability/#admission-controller
+  replicas: 3
+backgroundController:
+  # This sets the background controller mode more information can be found here: https://release-1-16-0.kyverno.io/docs/high-availability/#background-controller
+  replicas: 3
+cleanupController:
+  # This sets the cleanup controller mode more information can be found here: https://release-1-16-0.kyverno.io/docs/high-availability/#cleanup-controller
+  replicas: 3
+reportsController:
+  # This sets the reports controller mode more information can be found here: https://release-1-16-0.kyverno.io/docs/high-availability/#reports-controller
+  replicas: 3
+
+# Default values for Kyverno can be found here:
+# https://github.com/kyverno/kyverno/blob/release-1.13/charts/kyverno/values.yaml
+
+# Last Updated: 22/06/2026
